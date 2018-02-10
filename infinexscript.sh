@@ -20,6 +20,7 @@ sudo apt-get update -y
 sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
 sudo git clone https://github.com/InfinexOfficial/Infinex /root/temp
 cd /root/temp
+chmod -R 755 /root/temp
 ./autogen.sh
 ./configure
 sudo make
