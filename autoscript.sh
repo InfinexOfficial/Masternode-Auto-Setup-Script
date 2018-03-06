@@ -1,4 +1,3 @@
-
 #!/bin/bash
 if free | awk '/^Swap:/ {exit !$2}'; then
 echo "Have swap"
