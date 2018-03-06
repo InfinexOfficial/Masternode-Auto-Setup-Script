@@ -19,21 +19,11 @@ sudo apt-get install libzmq3-dev libminiupnpc-dev libssl-dev libevent-dev -y
 sudo add-apt-repository ppa:bitcoin/bitcoin -y
 sudo apt-get update -y
 sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
-sudo git clone https://github.com/InfinexOfficial/infinex temp
-chmod -R 755 /root/temp
-cd /root/temp
-./autogen.sh
-./configure
-sudo make
-cd /root/temp/src
-sudo strip infinexd
-sudo strip infinex-cli
-sudo strip infinex-tx
 mkdir /root/infinex
-cp infinexd /root/infinex
-cp infinex-cli /root/infinex
-cp infinex-tx /root/infinex
 cd /root/infinex
+wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-cli
+wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-tx
+wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinexd
 chmod -R 755 /root/infinex
 rm -r /root/.infinexcore
 mkdir /root/.infinexcore
