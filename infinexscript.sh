@@ -34,7 +34,8 @@ cp infinexd /root/infinex
 cp infinex-cli /root/infinex
 cp infinex-tx /root/infinex
 cd /root/infinex
-chmod -R 755 /root/infinex
+chmod -R 755 /root/infinexr
+rm -r /root/.infinexcore
 mkdir /root/.infinexcore
 ./infinexd -daemon
 sleep 3
