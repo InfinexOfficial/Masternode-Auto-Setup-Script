@@ -25,6 +25,7 @@ wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-cl
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-tx
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinexd
 chmod -R 755 /root/infinex
+rm -r /root/.infinexcore
 mkdir /root/.infinexcore
 ./infinexd -daemon
 sleep 3
