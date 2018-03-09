@@ -44,10 +44,12 @@ cp infinex-tx /root/infinex
 cd /root/infinex
 fi
 chmod -R 755 /root/infinex
+if [ -d "/root/.infinexcore" ]; then
 rm -r /root/.infinexcore
+fi
 mkdir /root/.infinexcore
 ./infinexd -daemon
-sleep 3
+sleep 10
 masternodekey=$(./infinex-cli masternode genkey)
 ./infinex-cli stop
 echo -e "maxconnections=256\nmasternode=1\nmasternodeprivkey=$masternodekey" >> /root/.infinexcore/infinex.conf
