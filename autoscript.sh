@@ -19,38 +19,23 @@ sudo apt-get install libzmq3-dev libminiupnpc-dev libssl-dev libevent-dev -y
 sudo add-apt-repository ppa:bitcoin/bitcoin -y
 sudo apt-get update -y
 sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
-sudo git clone https://github.com/InfinexOfficial/infinex temp
-chmod -R 755 /root/temp
-cd /root/temp
-./autogen.sh
-./configure
-sudo make
 mkdir /root/infinex
-file="/root/temp/src/infinexd"
-if [ ! -f "$file" ]
-then
 cd /root/infinex
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-cli
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-tx
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinexd
-else
-cd /root/temp/src
-sudo strip infinexd
-sudo strip infinex-cli
-sudo strip infinex-tx
-cp infinexd /root/infinex
-cp infinex-cli /root/infinex
-cp infinex-tx /root/infinex
-cd /root/infinex
-fi
 chmod -R 755 /root/infinex
+if [ -d "/root/.infinexcore" ]; then
 rm -r /root/.infinexcore
+fi
 mkdir /root/.infinexcore
 ./infinexd -daemon
-sleep 3
+sleep 10
 masternodekey=$(./infinex-cli masternode genkey)
 ./infinex-cli stop
+sleep 1
 echo -e "maxconnections=256\nmasternode=1\nmasternodeprivkey=$masternodekey" >> /root/.infinexcore/infinex.conf
+sleep 1
 ./infinexd -daemon
 echo "Masternode private key: $masternodekey"
 echo "Job completed successfully"
