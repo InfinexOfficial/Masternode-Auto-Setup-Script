@@ -37,7 +37,7 @@ mkdir $wiredir
 file=$wirebuilddir"src/wired"
 if [ ! -f "$file" ]
 then
-
+echo "Job fail during compile, please re-run the script again!"
 else
 cd $wirebuilddir"src"
 sudo strip wired
@@ -46,7 +46,6 @@ sudo strip wire-tx
 cp wired $wiredir
 cp wire-cli $wiredir
 cp wire-tx $wiredir
-fi
 cd $wiredir
 chmod -R 755 $wiredir
 mkdir $wirecoredir
@@ -62,3 +61,4 @@ sleep 1
 ./wired -daemon
 echo "Masternode private key: $masternodekey"
 echo "Job completed successfully"
+fi
