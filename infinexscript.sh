@@ -19,35 +19,40 @@ sudo apt-get install libzmq3-dev libminiupnpc-dev libssl-dev libevent-dev -y
 sudo add-apt-repository ppa:bitcoin/bitcoin -y
 sudo apt-get update -y
 sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
-sudo git clone https://github.com/InfinexOfficial/infinex temp
-chmod -R 755 /root/temp
-cd /root/temp
+cd
+basedir=$(pwd)
+infinexbuilddir=$basedir"/infinextemp/"
+infinexdir=$basedir"/infinex/"
+infinexcoredir=$basedir"/.infinexcore/"
+rm -r $infinexbuilddir
+rm -r $infinexdir
+rm -r $infinexcoredir
+sudo git clone https://github.com/InfinexOfficial/infinex $infinexbuilddir
+chmod -R 755 $infinexbuilddir
+cd $infinexbuilddir
 ./autogen.sh
 ./configure
 sudo make
-mkdir /root/infinex
-file="/root/temp/src/infinexd"
+mkdir $infinexdir
+file=$infinexbuilddir"src/infinexd"
 if [ ! -f "$file" ]
 then
-cd /root/infinex
+cd $infinexdir
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-cli
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-tx
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinexd
 else
-cd /root/temp/src
+cd $infinexbuilddir"src"
 sudo strip infinexd
 sudo strip infinex-cli
 sudo strip infinex-tx
-cp infinexd /root/infinex
-cp infinex-cli /root/infinex
-cp infinex-tx /root/infinex
-cd /root/infinex
+cp infinexd $infinexdir
+cp infinex-cli $infinexdir
+cp infinex-tx $infinexdir
 fi
-chmod -R 755 /root/infinex
-if [ -d "/root/.infinexcore" ]; then
-rm -r /root/.infinexcore
-fi
-mkdir /root/.infinexcore
+cd $infinexdir
+chmod -R 755 $infinexdir
+mkdir $infinexcoredir
 ./infinexd -daemon
 sleep 10
 masternodekey=$(./infinex-cli masternode genkey)
