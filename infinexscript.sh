@@ -58,7 +58,7 @@ sleep 10
 masternodekey=$(./infinex-cli masternode genkey)
 ./infinex-cli stop
 sleep 1
-echo -e "maxconnections=256\nmasternode=1\nmasternodeprivkey=$masternodekey" >> /root/.infinexcore/infinex.conf
+echo -e "maxconnections=256\nmasternode=1\nmasternodeprivkey=$masternodekey" >> $infinexcoredir"infinex.conf"
 sleep 1
 ./infinexd -daemon
 echo "Masternode private key: $masternodekey"
