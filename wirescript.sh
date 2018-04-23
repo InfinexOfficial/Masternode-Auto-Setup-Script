@@ -50,13 +50,13 @@ cd $wiredir
 chmod -R 755 $wiredir
 mkdir $wirecoredir
 rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-echo -e "rpcuser=wirerpc\nrpcpassword=" >> $rpcpassword >> $wirecore"wire.conf"
+echo -e "rpcuser=wirerpc\nrpcpassword="$rpcpassword >> $wirecoredir"wire.conf"
 ./wired -daemon
 sleep 10
 masternodekey=$(./wire-cli masternode genkey)
 ./wire-cli stop
 sleep 1
-echo -e "masternode=1\nmasternodeprivkey=$masternodekey" >> $wirecore"wire.conf"
+echo -e "masternode=1\nmasternodeprivkey="$masternodekey >> $wirecoredir"wire.conf"
 sleep 1
 ./wired -daemon
 echo "Masternode private key: $masternodekey"
