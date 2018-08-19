@@ -35,8 +35,10 @@ chmod -R 755 $infinexdir
 ./infinexd -daemon
 sleep 10
 masternodekey=$(./infinex-cli masternode genkey)
-while [ "$masternodekey" == "" ]
+counter = 0
+while [ "$masternodekey" == "" && $counter -le 3 ]
 do
+counter=$((counter+1))
 sleep 10
 masternodekey=$(./infinex-cli masternode genkey)
 done
