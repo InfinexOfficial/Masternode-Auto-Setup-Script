@@ -42,6 +42,10 @@ counter=$((counter+1))
 sleep 10
 masternodekey=$(./infinex-cli masternode genkey)
 done
+if [ "$masternodekey" == "" ]
+then
+echo "Fail to generate masternode privkey, please contact Infinex Discord Channel for help"
+else
 ./infinex-cli stop
 sleep 1
 echo -e "maxconnections=1024\nmasternode=1\nmasternodeprivkey=$masternodekey" >> $infinexcoredir"infinex.conf"
@@ -50,3 +54,4 @@ sleep 1
 ./infinexd -daemon
 echo "Masternode private key: $masternodekey"
 echo "Job completed successfully"
+fi
