@@ -33,7 +33,7 @@ wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-tx
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinexd
 chmod -R 755 $infinexdir
 ./infinexd -daemon
-sleep 10
+sleep 30
 masternodekey=$(./infinex-cli masternode genkey)
 counter = 0
 while [ "$masternodekey" == "" && $counter -le 3 ]
