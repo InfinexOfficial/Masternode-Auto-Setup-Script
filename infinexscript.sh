@@ -32,7 +32,7 @@ chmod -R 755 $infinexbuilddir
 cd $infinexbuilddir
 ./autogen.sh
 ./configure
-sudo make
+sudo make -j2
 mkdir $infinexdir
 file=$infinexbuilddir"src/infinexd"
 file2=$infinexbuilddir"src/infinex-cli"
