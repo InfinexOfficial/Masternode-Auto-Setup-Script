@@ -21,11 +21,12 @@ sudo apt-get update -y
 sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
 cd
 basedir=$(pwd)
-infinexcoredir=$basedir"/.infinexcore/"
+infinexbuilddir=$basedir"/infinextemp/"
 infinexdir=$basedir"/infinex/"
-rm -r $infinexcoredir
+infinexcoredir=$basedir"/.infinexcore/"
+rm -r $infinexbuilddir
 rm -r $infinexdir
-mkdir $infinexcoredir
+rm -r $infinexcoredir
 mkdir $infinexdir
 cd $infinexdir
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-cli
@@ -33,7 +34,7 @@ wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-tx
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinexd
 chmod -R 755 $infinexdir
 ./infinexd -daemon
-sleep 10
+sleep 30
 masternodekey=$(./infinex-cli masternode genkey)
 counter = 0
 while [ "$masternodekey" == "" && $counter -le 3 ]
@@ -42,6 +43,10 @@ counter=$((counter+1))
 sleep 10
 masternodekey=$(./infinex-cli masternode genkey)
 done
+if [ "$masternodekey" == "" ]
+then
+echo "Fail to generate masternode privkey, please contact Infinex Discord Channel for help"
+else
 ./infinex-cli stop
 sleep 1
 echo -e "maxconnections=1024\nmasternode=1\nmasternodeprivkey=$masternodekey" >> $infinexcoredir"infinex.conf"
@@ -50,3 +55,4 @@ sleep 1
 ./infinexd -daemon
 echo "Masternode private key: $masternodekey"
 echo "Job completed successfully"
+fi
