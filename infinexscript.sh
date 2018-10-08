@@ -27,11 +27,31 @@ infinexcoredir=$basedir"/.infinexcore/"
 rm -r $infinexbuilddir
 rm -r $infinexdir
 rm -r $infinexcoredir
+sudo git clone https://github.com/InfinexOfficial/infinex $infinexbuilddir	
+chmod -R 755 $infinexbuilddir	
+cd $infinexbuilddir	
+./autogen.sh	
+./configure	
+sudo make -j2
 mkdir $infinexdir
+file=$infinexbuilddir"src/infinexd"	
+file2=$infinexbuilddir"src/infinex-cli"	
+if [ ! -f "$file" ] || [ ! -f "$file2" ]	
+then
 cd $infinexdir
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-cli
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinex-tx
 wget https://github.com/InfinexOfficial/Infinex/releases/download/1.0/infinexd
+else	
+cd $infinexbuilddir"src"	
+sudo strip infinexd	
+sudo strip infinex-cli	
+sudo strip infinex-tx	
+cp infinexd $infinexdir	
+cp infinex-cli $infinexdir	
+cp infinex-tx $infinexdir	
+cd $infinexdir	
+fi
 chmod -R 755 $infinexdir
 ./infinexd -daemon
 sleep 30
