@@ -69,7 +69,7 @@ echo "Fail to generate masternode privkey, please contact Infinex Discord Channe
 else
 ./infinex-cli stop
 sleep 1
-echo -e "maxconnections=1024\nmasternode=1\nmasternodeprivkey=$masternodekey" >> $infinexcoredir"infinex.conf"
+echo -e "maxconnections=873\nmasternode=1\nmasternodeprivkey=$masternodekey" >> $infinexcoredir"infinex.conf"
 crontab -l | { cat; echo "@reboot ./infinex/infinexd -daemon"; } | crontab -
 sleep 1
 ./infinexd -daemon
