@@ -20,6 +20,12 @@ sudo apt-get install libzmq3-dev libminiupnpc-dev libssl-dev libevent-dev -y
 sudo add-apt-repository ppa:bitcoin/bitcoin -y
 sudo apt-get update -y
 sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
+cd
+basedir=$(pwd)
+infinexdir=$basedir"/infinex/"
+infinexcoredir=$basedir"/.infinexcore/"
+mkdir $infinexdir
+mkdir $infinexcoredir
 echo -e "#!/bin/bash\nwhile :\ndo\nif pgrep infinexd >/dev/null 2>&1\nthen\n:else\n./infinex/infinexd -daemon\nfi\nsleep 10\ndone" >> autorestart.sh
 echo -e "if [ -f /root/infinexd ]; then\nif [ -f /root/infinex-cli ]; then\npkill autorestart.sh\n./infinex/infinex-cli stop\nrm /root/.infinexcore/banlist.dat\nrm /root/.infinexcore/netfulfilled.dat\nrm /root/.infinexcore/peers.dat\nrm /root/.infinexcore/debug.log\nsleep 1\nmv /root/infinexd /root/infinex/\nmv /root/infinex-cli /root/infinex/\nsleep 1\nnohup ./autorestart.sh > autorestart.log 2>&1&\nfi\nfi" >> auto.sh
 shutdown -r now
